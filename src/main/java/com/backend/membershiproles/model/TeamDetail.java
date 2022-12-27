@@ -9,5 +9,5 @@ public class TeamDetail {
 private String id;
 private String name;
 private String teamLeadId;
-private List<String> teamMembersId;
+private List<String> teamMemberIds;
 }

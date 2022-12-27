@@ -4,8 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .mvn/
-docker/membership-roles*
-docker/data/
+src/main/resources/docker/membership-roles*
+src/main/resources/docker/data/
 
 ### STS ###
 .apt_generated

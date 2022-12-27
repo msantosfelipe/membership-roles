@@ -2,13 +2,13 @@ run-app: build-docker-image run-docker
 
 build-docker-image:
 	./mvnw clean package -DskipTests
-	cp target/membership-roles-0.0.1-SNAPSHOT.jar docker
+	cp target/membership-roles-0.0.1-SNAPSHOT.jar src/main/resources/docker
 
 run-docker:
-	cd docker/ && docker-compose up
+	cd src/main/resources/docker/ && docker-compose up
 
 stop-docker:
-	cd docker/ && docker-compose down
+	cd src/main/resources/docker/ && docker-compose down
 
 # For development purposes:
 create-dev-db:
@@ -19,3 +19,4 @@ run-dev-db:
 
 stop-dev-db:
 	docker stop teste-postgres
+
