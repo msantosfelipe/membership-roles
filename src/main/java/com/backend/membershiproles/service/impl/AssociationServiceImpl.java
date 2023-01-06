@@ -86,7 +86,7 @@ public class AssociationServiceImpl implements AssociationService {
     }
 
     @Override
-    public List<Association> findMembershipForRole(String roleCode) {
+    public Association findMembershipForRole(String roleCode) {
         var role = rolesRepository.findByRoleCode(roleCode);
         if (!role.isPresent()) {
             throw new ResourceNotFoundException("role not found");
@@ -97,7 +97,8 @@ public class AssociationServiceImpl implements AssociationService {
             throw new ResourceNotFoundException("no role was found for this membership");
         }
 
-        return associations.get();
+        var a = associations.get().get(0);
+        return a;
     }
 
     private boolean verifyExistinAssociation(UUID role, UUID team, UUID user) {

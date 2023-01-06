@@ -35,17 +35,18 @@ public class AssociationsController {
     @ResponseStatus(HttpStatus.OK)
     public RoleDto findRoleForMembership(@PathVariable("team_id") String teamId, @PathVariable("user_id") String userId){
         var role = associationService.findRoleForMembership(teamId, userId);
-        return convertToDto(role);
+        return convertRoleToDto(role);
     }
 
     @GetMapping(value = "/{role_code}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<Association> findMembershipforRole(@PathVariable("role_code") String roleCode){
+    public Association findMembershipforRole(@PathVariable("role_code") String roleCode){
         return associationService.findMembershipForRole(roleCode);
     }
 
-    private RoleDto convertToDto(Role role) throws ParseException {
+    private RoleDto convertRoleToDto(Role role) throws ParseException {
         RoleDto roleDto = modelMapper.map(role, RoleDto.class);
         return roleDto;
     }
+
 }
