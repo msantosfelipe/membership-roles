@@ -12,7 +12,7 @@ stop-docker:
 
 # For development purposes:
 create-dev-db:
-	docker run --name teste-postgres -e "POSTGRES_USER=compose-postgres" -e "POSTGRES_PASSWORD=compose-postgres" -p 5432:5432 -v $(CURDIR)/docker/data:/var/lib/postgresql/data -d postgres
+	docker run --name teste-postgres -e "POSTGRES_USER=compose-postgres" -e "POSTGRES_PASSWORD=compose-postgres" -p 5432:5432 -v $(CURDIR)/src/main/resources/docker/data:/var/lib/postgresql/data -d postgres
 
 run-dev-db:
 	docker start teste-postgres

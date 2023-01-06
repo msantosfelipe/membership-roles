@@ -43,7 +43,7 @@ public class MembershipApiClient {
         return mapper.convertValue(object, UserDetail.class);
     }
 
-    public TeamDetail findUTeam(String team) {
+    public TeamDetail findTeam(String team) {
         var object = getObject(teamsUri + "/" + team);
         return mapper.convertValue(object, TeamDetail.class);
     }

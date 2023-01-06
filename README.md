@@ -16,19 +16,8 @@ When a role is assigned to a team member a new record is created in associations
 Implement edit and delete funcionality over associations
 
 -------
-CREATE TABLE IF NOT EXISTS users_roles(
-role UUID
-team UUID
-user UUID   
-);
-
-POST /membership
-{
-role_code // not required, defauld = dev
-team_id
-user_id
-}
-
-GET /membership/team_id/user_id
-
-GET /membership/role
+TODO
+- retorno dos endpoints
+- swagger
+- testes
+- ver pq n ta rodando no docker

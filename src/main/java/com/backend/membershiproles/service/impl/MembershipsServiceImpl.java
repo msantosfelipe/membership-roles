@@ -33,6 +33,6 @@ public class MembershipsServiceImpl implements MembershipsService {
 
     @Override
     public TeamDetail findTeam(String team) {
-        return client.findUTeam(team);
+        return client.findTeam(team);
     }
 }

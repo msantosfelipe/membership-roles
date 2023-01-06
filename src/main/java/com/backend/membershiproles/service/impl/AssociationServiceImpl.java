@@ -1,8 +1,11 @@
 package com.backend.membershiproles.service.impl;
 
 import com.backend.membershiproles.client.MembershipApiClient;
+import com.backend.membershiproles.exception.BadRequestException;
+import com.backend.membershiproles.exception.ResourceNotFoundException;
 import com.backend.membershiproles.model.dto.AssociationDto;
 import com.backend.membershiproles.model.entity.Association;
+import com.backend.membershiproles.model.entity.Role;
 import com.backend.membershiproles.repository.AssociationsRepository;
 import com.backend.membershiproles.repository.RolesRepository;
 import com.backend.membershiproles.service.AssociationService;
@@ -11,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -36,43 +41,66 @@ public class AssociationServiceImpl implements AssociationService {
         }
 
         var role = rolesRepository.findByRoleCode(associationDto.getRoleCode());
-        if (role == null) {
-            // TODO throw role exception not found
-            return;
+        if (!role.isPresent()) {
+            throw new ResourceNotFoundException("role not found");
         }
 
-        var team = client.findUTeam(associationDto.getTeamId());
+        var team = client.findTeam(associationDto.getTeamId());
         if (team == null) {
-            // TODO throu team not found exception
-            return;
+            throw new ResourceNotFoundException("team not found");
         }
 
-        var roleId = role.getId();
+        var roleId = role.get().getId();
         var teamId = UUID.fromString(associationDto.getTeamId());
         var userId = UUID.fromString(associationDto.getUserId());
 
         if (team.getTeamLeadId().equals(associationDto.getUserId())) {
             if (verifyExistinAssociation(roleId, teamId, userId)) {
-                // TODO throu already exists exception
-                return;
+                throw new BadRequestException("membership and role association already exists");
             }
             associationsRepository.save(new Association(roleId, teamId, userId));
         }
 
         team.getTeamMemberIds().forEach(i -> {
-            if (i == associationDto.getUserId()) {
+            if (i.equals(associationDto.getUserId())) {
                 if (verifyExistinAssociation(roleId, teamId, userId)) {
-                    // TODO throw already exists exception
-                    return;
+                    throw new BadRequestException("membership and role association already exists");
                 }
-                // TODO else, adicionar na base
+
                 associationsRepository.save(new Association(roleId, teamId, userId));
             }
         });
     }
 
+    @Override
+    public Role findRoleForMembership(String teamId, String userId) {
+        var team = UUID.fromString(teamId);
+        var user = UUID.fromString(userId);
+        var association = associationsRepository.findByTeamAndUser(team, user);
+        if (!association.isPresent()) {
+            throw new ResourceNotFoundException("membership not found");
+        }
+
+        var role = rolesRepository.findById(association.get().getRole()).get();
+        return role;
+    }
+
+    @Override
+    public List<Association> findMembershipForRole(String roleCode) {
+        var role = rolesRepository.findByRoleCode(roleCode);
+        if (!role.isPresent()) {
+            throw new ResourceNotFoundException("role not found");
+        }
+
+        var associations = associationsRepository.findAllByRole(role.get().getId());
+        if (!associations.isPresent() || associations.stream().count() == 0) {
+            throw new ResourceNotFoundException("no role was found for this membership");
+        }
+
+        return associations.get();
+    }
+
     private boolean verifyExistinAssociation(UUID role, UUID team, UUID user) {
-        var association = associationsRepository.findByRoleAndTeamAndUser(role, team, user);
-        return association != null;
+       return associationsRepository.findByRoleAndTeamAndUser(role, team, user).isPresent();
     }
 }

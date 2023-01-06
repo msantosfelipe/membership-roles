@@ -1,5 +1,6 @@
 package com.backend.membershiproles.service.impl;
 
+import com.backend.membershiproles.exception.BadRequestException;
 import com.backend.membershiproles.model.entity.Role;
 import com.backend.membershiproles.repository.RolesRepository;
 import com.backend.membershiproles.service.RolesService;
@@ -28,8 +29,7 @@ public class RolesServiceImpl implements RolesService {
         }
 
         if (rolesRepository.countByRoleCode(role.getRoleCode()) > 0) {
-            // TODO trhow exception
-            return null;
+            throw new BadRequestException("role already exists");
         }
 
         return rolesRepository.save(role);
