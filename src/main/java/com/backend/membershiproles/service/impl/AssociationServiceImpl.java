@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -86,7 +85,7 @@ public class AssociationServiceImpl implements AssociationService {
     }
 
     @Override
-    public Association findMembershipForRole(String roleCode) {
+    public List<Association> findMembershipForRole(String roleCode) {
         var role = rolesRepository.findByRoleCode(roleCode);
         if (!role.isPresent()) {
             throw new ResourceNotFoundException("role not found");
@@ -97,8 +96,7 @@ public class AssociationServiceImpl implements AssociationService {
             throw new ResourceNotFoundException("no role was found for this membership");
         }
 
-        var a = associations.get().get(0);
-        return a;
+        return associations.get();
     }
 
     private boolean verifyExistinAssociation(UUID role, UUID team, UUID user) {

@@ -40,7 +40,7 @@ public class AssociationsController {
 
     @GetMapping(value = "/{role_code}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Association findMembershipforRole(@PathVariable("role_code") String roleCode){
+    public List<Association> findMembershipforRole(@PathVariable("role_code") String roleCode){
         return associationService.findMembershipForRole(roleCode);
     }
 

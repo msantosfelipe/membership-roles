@@ -9,5 +9,5 @@ import java.util.List;
 public interface AssociationService {
     void createAssociation(AssociationDto associationDto);
     Role findRoleForMembership(String teamId, String userId);
-    Association findMembershipForRole(String roleCode);
+    List<Association> findMembershipForRole(String roleCode);
 }
