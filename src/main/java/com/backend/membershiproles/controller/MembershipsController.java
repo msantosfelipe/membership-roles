@@ -5,6 +5,7 @@ import com.backend.membershiproles.model.TeamDetail;
 import com.backend.membershiproles.model.User;
 import com.backend.membershiproles.model.UserDetail;
 import com.backend.membershiproles.service.MembershipsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/membership")
+@Tag(name="Memberships", description = "Find users and teams (Users and Teams service)")
 public class MembershipsController {
 
     @Autowired

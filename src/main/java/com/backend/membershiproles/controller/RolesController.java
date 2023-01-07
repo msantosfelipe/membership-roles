@@ -3,6 +3,7 @@ package com.backend.membershiproles.controller;
 import com.backend.membershiproles.model.dto.RoleDto;
 import com.backend.membershiproles.model.entity.Role;
 import com.backend.membershiproles.service.RolesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/roles")
+@Tag(name="Roles", description = "Create and retrieve roles")
 public class RolesController {
 
     @Autowired
