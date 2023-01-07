@@ -21,10 +21,13 @@ public class Association {
     private UUID team;
     @Column(name = "user_id", nullable = false)
     private UUID user;
+    @Column(name = "team_lead", nullable = false)
+    private boolean isTeamLead;
 
-    public Association(UUID role, UUID team, UUID user) {
+    public Association(UUID role, UUID team, UUID user, boolean isTeamLead) {
         this.role = role;
         this.team = team;
         this.user = user;
+        this.isTeamLead = isTeamLead;
     }
 }

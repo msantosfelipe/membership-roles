@@ -11,5 +11,6 @@ public class MembershipDto {
     private String teamId;
     @JsonProperty(value = "user_id")
     private String userId;
-
+    @JsonProperty(value = "is_team_lead")
+    private boolean isTeamLead;
 }

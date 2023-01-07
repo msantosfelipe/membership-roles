@@ -58,13 +58,13 @@ public class AssociationServiceImpl implements AssociationService {
         }
 
         if (team.getTeamLeadId().equals(associationDto.getUserId())) {
-            return associationsRepository.save(new Association(roleId, teamId, userId));
+            return associationsRepository.save(new Association(roleId, teamId, userId, true));
         }
 
         for (int i = 0; i < team.getTeamMemberIds().size(); i++) {
             var teamUserId = team.getTeamMemberIds().get(i);
             if (teamUserId.equals(associationDto.getUserId())) {
-                return associationsRepository.save(new Association(roleId, teamId, userId));
+                return associationsRepository.save(new Association(roleId, teamId, userId,false));
             }
         }
 

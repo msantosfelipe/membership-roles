@@ -1,0 +1,2 @@
+ALTER TABLE associations
+ADD COLUMN IF NOT EXISTS team_lead BOOL NOT NULL DEFAULT false;

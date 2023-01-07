@@ -55,7 +55,7 @@ public class AssociationsController {
     private List<MembershipDto> convertAssociationToMembershipDto(List<Association> associations) throws ParseException {
         var membershipDtoList = new ArrayList<MembershipDto>();
         associations.forEach(i -> {
-            membershipDtoList.add(new MembershipDto(i.getTeam().toString(), i.getUser().toString()));
+            membershipDtoList.add(new MembershipDto(i.getTeam().toString(), i.getUser().toString(), i.isTeamLead()));
         });
         return membershipDtoList;
     }
