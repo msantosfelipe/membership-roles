@@ -6,11 +6,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AssociationDto {
-    @JsonProperty(value = "role_code")
-    private String roleCode;
+public class MembershipDto {
     @JsonProperty(value = "team_id")
     private String teamId;
     @JsonProperty(value = "user_id")
     private String userId;
+
 }

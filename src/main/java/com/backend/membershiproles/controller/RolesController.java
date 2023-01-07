@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,16 +24,14 @@ public class RolesController {
     RolesService rolesService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Role> listAll(){
-        return rolesService.findAll();
+    public ResponseEntity<List<Role>> listAll(){
+        return new ResponseEntity<>(rolesService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public Role save(@RequestBody RoleDto roleDto){
+    public ResponseEntity<Role> save(@RequestBody RoleDto roleDto){
         var role = convertToEntity(roleDto);
-        return rolesService.createRole(role);
+        return new ResponseEntity<>(rolesService.createRole(role), HttpStatus.CREATED);
     }
 
     private Role convertToEntity(RoleDto roleDto) throws ParseException {

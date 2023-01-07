@@ -17,7 +17,6 @@ Implement edit and delete funcionality over associations
 
 -------
 TODO
-- retorno dos endpoints
 - swagger
 - testes
-- ver pq n ta rodando no docker
+- fix docker

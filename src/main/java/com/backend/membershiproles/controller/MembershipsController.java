@@ -8,6 +8,7 @@ import com.backend.membershiproles.service.MembershipsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,27 +21,23 @@ public class MembershipsController {
     private MembershipsService membershipsService;
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public List<User> findAllUsers() {
-        return membershipsService.findAllUsers();
+    public ResponseEntity<List<User>> findAllUsers() {
+        return new ResponseEntity<>(membershipsService.findAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/teams", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Team> findAllTeams() {
-        return membershipsService.findAllTeams();
+    public ResponseEntity<List<Team>> findAllTeams() {
+        return new ResponseEntity<>(membershipsService.findAllTeams(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public UserDetail findUser(@PathVariable("id") String user) {
-        return membershipsService.findUser(user);
+    public ResponseEntity<UserDetail> findUser(@PathVariable("id") String user) {
+        return new ResponseEntity<>(membershipsService.findUser(user), HttpStatus.OK);
     }
 
     @GetMapping(value = "/teams/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public TeamDetail findTeam(@PathVariable("id") String team) {
-        return membershipsService.findTeam(team);
+    public ResponseEntity<TeamDetail> findTeam(@PathVariable("id") String team) {
+        return new ResponseEntity<>(membershipsService.findTeam(team), HttpStatus.OK);
     }
 
 }

@@ -34,7 +34,7 @@ public class AssociationServiceImpl implements AssociationService {
     private String defaultRole;
 
     @Override
-    public void createAssociation(AssociationDto associationDto) {
+    public Association createAssociation(AssociationDto associationDto) {
         if (Strings.isEmpty(associationDto.getRoleCode())) {
             associationDto.setRoleCode(defaultRole);
         }
@@ -50,38 +50,37 @@ public class AssociationServiceImpl implements AssociationService {
         }
 
         var roleId = role.get().getId();
-        var teamId = UUID.fromString(associationDto.getTeamId());
-        var userId = UUID.fromString(associationDto.getUserId());
+        var teamId = convertStringToUuid(associationDto.getTeamId());
+        var userId = convertStringToUuid(associationDto.getUserId());
 
-        if (team.getTeamLeadId().equals(associationDto.getUserId())) {
-            if (verifyExistinAssociation(roleId, teamId, userId)) {
-                throw new BadRequestException("membership and role association already exists");
-            }
-            associationsRepository.save(new Association(roleId, teamId, userId));
+        if (verifyExistinAssociation(roleId, teamId, userId)) {
+            throw new BadRequestException("membership and role association already exists");
         }
 
-        team.getTeamMemberIds().forEach(i -> {
-            if (i.equals(associationDto.getUserId())) {
-                if (verifyExistinAssociation(roleId, teamId, userId)) {
-                    throw new BadRequestException("membership and role association already exists");
-                }
+        if (team.getTeamLeadId().equals(associationDto.getUserId())) {
+            return associationsRepository.save(new Association(roleId, teamId, userId));
+        }
 
-                associationsRepository.save(new Association(roleId, teamId, userId));
+        for (int i = 0; i < team.getTeamMemberIds().size(); i++) {
+            var teamUserId = team.getTeamMemberIds().get(i);
+            if (teamUserId.equals(associationDto.getUserId())) {
+                return associationsRepository.save(new Association(roleId, teamId, userId));
             }
-        });
+        }
+
+        throw new ResourceNotFoundException("user not found in team");
     }
 
     @Override
     public Role findRoleForMembership(String teamId, String userId) {
-        var team = UUID.fromString(teamId);
-        var user = UUID.fromString(userId);
+        var team = convertStringToUuid(teamId);
+        var user = convertStringToUuid(userId);
         var association = associationsRepository.findByTeamAndUser(team, user);
         if (!association.isPresent()) {
             throw new ResourceNotFoundException("membership not found");
         }
 
-        var role = rolesRepository.findById(association.get().getRole()).get();
-        return role;
+        return rolesRepository.findById(association.get().getRole()).get();
     }
 
     @Override
@@ -101,5 +100,13 @@ public class AssociationServiceImpl implements AssociationService {
 
     private boolean verifyExistinAssociation(UUID role, UUID team, UUID user) {
        return associationsRepository.findByRoleAndTeamAndUser(role, team, user).isPresent();
+    }
+
+    private UUID convertStringToUuid(String value) {
+        try {
+            return UUID.fromString(value);
+        } catch (Exception e) {
+            throw new BadRequestException("invalid uuid");
+        }
     }
 }
