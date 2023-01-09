@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "7e702e9f-d349-4a07-aa4e-a4efa3bca510",
+		"name": "membership-roles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21797587"
+	},
+	"item": [
+		{
+			"name": "Find All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/membership/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"membership",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/membership/users/fd282131-d8aa-4819-b0c8-d9e0bfb1b75c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"membership",
+						"users",
+						"fd282131-d8aa-4819-b0c8-d9e0bfb1b75c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Teams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/membership/teams",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"membership",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/membership/teams/7676a4bf-adfe-415c-941b-1739af07039b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"membership",
+						"teams",
+						"7676a4bf-adfe-415c-941b-1739af07039b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Roles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/roles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Scrum Master\",\n    \"role_code\" : \"SM\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/roles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Association",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"role_code\" : \"dev\",\n    \"team_id\" : \"7676a4bf-adfe-415c-941b-1739af07039b\",\n    \"user_id\" : \"371d2ee8-cdf4-48cf-9ddb-04798b79ad9e\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/associations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"associations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Membership for Role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/associations/qa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"associations",
+						"qa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Role For Membership",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/associations/7676a4bf-adfe-415c-941b-1739af07039b/b12fa35a-9c4c-4bf9-8f32-27cf03a1f190",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"associations",
+						"7676a4bf-adfe-415c-941b-1739af07039b",
+						"b12fa35a-9c4c-4bf9-8f32-27cf03a1f190"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator mappings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/membership-roles/actuator/mappings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"membership-roles",
+						"actuator",
+						"mappings"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
