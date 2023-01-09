@@ -3,7 +3,6 @@ package com.backend.membershiproles.controller;
 import com.backend.membershiproles.exception.BadRequestException;
 import com.backend.membershiproles.model.dto.AssociationDto;
 import com.backend.membershiproles.model.dto.MembershipDto;
-import com.backend.membershiproles.model.dto.RoleDto;
 import com.backend.membershiproles.model.entity.Association;
 import com.backend.membershiproles.model.entity.Role;
 import com.backend.membershiproles.service.AssociationService;
@@ -49,11 +48,6 @@ public class AssociationsController {
     public ResponseEntity<List<MembershipDto>> findMembershipforRole(@PathVariable("role_code") String roleCode) {
         var associations = associationService.findMembershipForRole(roleCode);
         return new ResponseEntity<>(convertAssociationToMembershipDto(associations), HttpStatus.OK);
-    }
-
-    private RoleDto convertRoleToDto(Role role) throws ParseException {
-        RoleDto roleDto = modelMapper.map(role, RoleDto.class);
-        return roleDto;
     }
 
     private List<MembershipDto> convertAssociationToMembershipDto(List<Association> associations) throws ParseException {

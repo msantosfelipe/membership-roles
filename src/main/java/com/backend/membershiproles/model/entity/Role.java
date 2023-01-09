@@ -2,13 +2,14 @@ package com.backend.membershiproles.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "roles")
 public class Role {
