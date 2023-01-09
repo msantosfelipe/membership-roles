@@ -5,7 +5,7 @@ import com.backend.membershiproles.model.dto.AssociationDto;
 import com.backend.membershiproles.model.dto.MembershipDto;
 import com.backend.membershiproles.model.entity.Association;
 import com.backend.membershiproles.model.entity.Role;
-import com.backend.membershiproles.service.AssociationService;
+import com.backend.membershiproles.service.AssociationsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
@@ -28,7 +28,7 @@ public class AssociationsController {
     private ModelMapper modelMapper;
 
     @Autowired
-    private AssociationService associationService;
+    private AssociationsService associationService;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Assign a role to a team member")

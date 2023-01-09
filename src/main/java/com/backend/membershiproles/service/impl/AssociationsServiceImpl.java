@@ -8,7 +8,7 @@ import com.backend.membershiproles.model.entity.Association;
 import com.backend.membershiproles.model.entity.Role;
 import com.backend.membershiproles.repository.AssociationsRepository;
 import com.backend.membershiproles.repository.RolesRepository;
-import com.backend.membershiproles.service.AssociationService;
+import com.backend.membershiproles.service.AssociationsService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AssociationServiceImpl implements AssociationService {
+public class AssociationsServiceImpl implements AssociationsService {
 
 
     @Autowired

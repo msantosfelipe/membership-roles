@@ -9,7 +9,7 @@ import com.backend.membershiproles.model.entity.Association;
 import com.backend.membershiproles.model.entity.Role;
 import com.backend.membershiproles.repository.AssociationsRepository;
 import com.backend.membershiproles.repository.RolesRepository;
-import com.backend.membershiproles.service.impl.AssociationServiceImpl;
+import com.backend.membershiproles.service.impl.AssociationsServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class AssociationServiceTest {
     @Mock
     private MembershipApiClient client;
     @InjectMocks
-    private AssociationServiceImpl associationService;
+    private AssociationsServiceImpl associationService;
 
     private Association association;
     private List<Association> associationList;
